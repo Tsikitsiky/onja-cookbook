@@ -1,0 +1,15 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center center;
+}
+
+label {
+    font-weight: 700;
+}
+
+ul, ol, li {
+    list-style: none;
+    padding: 0;
+}
