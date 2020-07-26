@@ -29,7 +29,30 @@ const handleAddStep = (e) => {
 // handle submit 
 const handleSubmit = (e) => {
     e.preventDefault();
-console.log(e);
+    console.log(setInputInAnObject());
+    form.reset();
+};
+
+// create the object
+const {name, picture, cook, difficulty, time, ingredients, steps} = form;
+
+const setInputInAnObject = () => {
+    for (let i = 0; i < ingredientList; i++) {
+        ingredients.push(i);
+    };
+    for (let j = 0; j < stepList; j++) {
+        steps.push(i);
+    };
+    const recipes = [{
+        title: name.value,
+        picture: picture.value,
+        author: cook.value,
+        difficulty: difficulty.value,
+        timing: time.value,
+        ingredients: [ingredients.value],
+        steps: [steps.value],
+    }];
+    return recipes;
 };
 
 // add event listeners
