@@ -6,21 +6,24 @@ const ingredientList = form.querySelector('.ingredient-list');
 const ingredientInput = form.querySelector('#ingredients');
 const stepList = form.querySelector('.step-list');
 const stepInput = form.querySelector('#steps');
+const recipes = [];
 
 // handle  add ingredient btns
 const handleAddIngredient = (e) => {
-e.preventDefault();
-const newIngredient = `
-    <li><input type="text" name="ingredients" id="ingredients"><br></li>
-`;
+    e.preventDefault();
+    const number = ingredientList.children.length + 1;
+    const newIngredient = `
+        <li><input type="text" name="ingredient${number}" id="ingredient${number}"><br></li>
+    `;
     ingredientList.insertAdjacentHTML('beforeend', newIngredient);
 };
 
 // handle  add step btns
 const handleAddStep = (e) => {
     e.preventDefault();
+    const number = stepList.children.length + 1;
     const newStep = `
-        <li><input type="text" name="steps" id="steps"><br></li>
+        <li><input type="text" name="step${number}" id="step${number}"><br></li>
     `;
     stepList.insertAdjacentHTML('beforeend', newStep);
     };
@@ -34,28 +37,32 @@ const handleSubmit = (e) => {
 };
 
 // create the object
-const {name, picture, cook, difficulty, time, ingredients, steps} = form;
+const {name, picture, cook, difficulty, time} = form;
 
 const setInputInAnObject = () => {
-    for (let i = 0; i < ingredientList; i++) {
-        ingredients.push(i);
+    let ingredientArray = [];
+    for (let i = 0; i < ingredientList.children.length; i++) {
+        ingredientArray.push(ingredientList.children[i].children[0].value);
+
     };
-    for (let j = 0; j < stepList; j++) {
-        steps.push(i);
+    let stepArray = [];
+    for (let j = 0; j < stepList.children.length; j++) {
+        stepArray.push(stepList.children[j].children[0].value);
     };
-    const recipes = [{
+    const recipe = {
         title: name.value,
         picture: picture.value,
         author: cook.value,
         difficulty: difficulty.value,
         timing: time.value,
-        ingredients: [ingredients.value],
-        steps: [steps.value],
-    }];
-    return recipes;
+        ingredients: [...ingredientArray],
+        steps: [...stepArray],
+    };
+    recipes.push(recipe);
+    return recipe;
 };
 
 // add event listeners
 addIngredientBtn.addEventListener('click', handleAddIngredient);
 addStepBtn.addEventListener('click', handleAddStep);
-submit.addEventListener('click', handleSubmit);
+form.addEventListener('submit', handleSubmit);
